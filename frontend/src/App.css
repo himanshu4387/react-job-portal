@@ -112,54 +112,130 @@ p {
 .authPage .container form .inputTag {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+}
+.authPage .container form .inputTag label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 .authPage .container form .inputTag div {
   display: flex;
   align-items: center;
   border-radius: 7px;
+  overflow: hidden;
+  border: 1.5px solid #d1d5db;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  height: 42px;
+}
+.authPage .container form .inputTag div:focus-within {
+  border-color: #2d5649;
+  box-shadow: 0 0 0 3px rgba(45, 86, 73, 0.12);
 }
 .authPage .container form .inputTag div input,
 .authPage .container form .inputTag div select {
-  background: #87878778;
-  padding: 8px;
+  background: #f9fafb;
+  padding: 10px 12px;
   border: none;
   width: 100%;
   height: 100%;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition: background 0.2s ease;
+}
+.authPage .container form .inputTag div input::placeholder {
+  color: #9ca3af;
+  font-size: 0.95rem;
 }
 .authPage .container form .inputTag div input:focus,
 .authPage .container form .inputTag div select:focus {
   outline: none;
+  background: #fff;
 }
-.authPage .container form .inputTag div svg {
-  width: 10%;
-  font-size: 1.5rem;
+.authPage .container form .inputTag div > svg {
+  flex-shrink: 0;
+  width: 42px;
+  font-size: 1.3rem;
   background: #2d5649;
   height: 100%;
-  padding: 8px;
+  padding: 9px;
   color: #fff;
 }
+.authPage .container form .inputTag div .eye-toggle {
+  flex-shrink: 0;
+  width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2d5649;
+  height: 100%;
+  padding: 9px;
+  border: none;
+  margin: 0;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.3rem;
+  outline: none;
+  box-sizing: border-box;
+}
+.authPage .container form .inputTag div .eye-toggle:hover,
+.authPage .container form .inputTag div .eye-toggle:focus,
+.authPage .container form .inputTag div .eye-toggle:active {
+  background: #2d5649;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  transform: none;
+}
 .authPage .container form button {
-  padding: 12px;
+  padding: 13px;
   text-align: center;
   border: none;
-  margin-top: 25px;
+  margin-top: 20px;
   font-weight: 700;
   color: #fff;
   background: #2d5649;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  letter-spacing: 0.5px;
+}
+.authPage .container form button:hover:not(:disabled):not(.eye-toggle) {
+  background: #1e3d32;
+  box-shadow: 0 4px 14px rgba(45, 86, 73, 0.35);
+  transform: translateY(-1px);
+}
+.authPage .container form button:active:not(:disabled):not(.eye-toggle) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.authPage .container form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 .authPage .container form a {
-  padding: 12px;
+  padding: 13px;
   text-align: center;
-  border: 1px solid #2d5649;
-  margin-top: 25px;
+  border: 1.5px solid #2d5649;
+  margin-top: 12px;
   font-weight: 700;
   color: #2d5649;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-decoration: none;
   border-radius: 7px;
+  display: block;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  letter-spacing: 0.5px;
+}
+.authPage .container form a:hover {
+  background: #2d5649;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(45, 86, 73, 0.25);
 }
 .authPage .banner {
   flex: 2;

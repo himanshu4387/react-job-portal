@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { Context } from "../../main";
 
 const Application = () => {
@@ -104,7 +104,7 @@ const Application = () => {
   };
 
   if (!isAuthorized || (user && user.role === "Employer")) {
-    navigateTo("/");
+    return <Navigate to="/login" />;
   }
 
   return (

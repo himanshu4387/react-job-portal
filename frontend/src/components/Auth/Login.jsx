@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { RiLock2Fill } from "react-icons/ri";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, Navigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import axios from "axios";
@@ -11,11 +11,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { isAuthorized, setIsAuthorized } = useContext(Context);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/user/login",
@@ -34,6 +37,8 @@ const Login = () => {
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,16 +83,23 @@ const Login = () => {
               <label>Password</label>
               <div>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <RiLock2Fill />
+                <button
+                  type="button"
+                  className="eye-toggle"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </button>
               </div>
             </div>
-            <button type="submit" onClick={handleLogin}>
-              Login
+            <button type="submit" onClick={handleLogin} disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
             </button>
             <Link to={"/register"}>Register Now</Link>
           </form>

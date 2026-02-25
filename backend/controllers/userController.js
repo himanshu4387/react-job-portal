@@ -48,7 +48,8 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
     .status(201)
     .cookie("token", "", {
       httpOnly: true,
-      expires: new Date(Date.now()),
+      expires: new Date(0),
+      path: "/",
     })
     .json({
       success: true,
@@ -59,8 +60,17 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
 
 export const getUser = catchAsyncErrors((req, res, next) => {
   const user = req.user;
+  // Sanitize user data to remove sensitive fields
+  const sanitizedUser = {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    role: user.role,
+  };
+
   res.status(200).json({
     success: true,
-    user,
+    user: sanitizedUser,
   });
 });

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../main";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import ResumeModal from "./ResumeModal";
 
 const MyApplications = () => {
@@ -39,7 +39,7 @@ const MyApplications = () => {
   }, [isAuthorized]);
 
   if (!isAuthorized) {
-    navigateTo("/");
+    return <Navigate to="/login" />;
   }
 
   const deleteApplication = (id) => {

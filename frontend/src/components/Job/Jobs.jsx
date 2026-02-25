@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Context } from "../../main";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const { isAuthorized } = useContext(Context);
-  const navigateTo = useNavigate();
   useEffect(() => {
     try {
       axios
@@ -21,7 +20,7 @@ const Jobs = () => {
     }
   }, []);
   if (!isAuthorized) {
-    navigateTo("/");
+    return <Navigate to="/login" />;
   }
 
   return (

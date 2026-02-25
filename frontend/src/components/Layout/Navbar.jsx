@@ -8,7 +8,7 @@ import { AiOutlineClose } from "react-icons/ai"; // Import the close icon
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
-  const { isAuthorized, setIsAuthorized, user } = useContext(Context);
+  const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
   const navigateTo = useNavigate();
 
   const handleLogout = async () => {
@@ -20,10 +20,12 @@ const Navbar = () => {
         }
       );
       toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Logged out.");
+    } finally {
+      setUser({});
       setIsAuthorized(false);
       navigateTo("/login");
-    } catch (error) {
-      toast.error(error.response.data.message), setIsAuthorized(true);
     }
   };
 
