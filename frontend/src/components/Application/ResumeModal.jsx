@@ -7,7 +7,35 @@ const ResumeModal = ({ imageUrl, onClose }) => {
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <img src={imageUrl} alt="resume" />
+        <iframe
+          src={imageUrl}
+          title="Resume PDF"
+          style={{
+            width: "90%",
+            maxWidth: "800px",
+            height: "85vh",
+            border: "none",
+            borderRadius: "10px",
+            background: "#fff",
+          }}
+        />
+        <a
+          href={imageUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            marginTop: "12px",
+            color: "#fff",
+            background: "#7c3aed",
+            padding: "10px 24px",
+            borderRadius: "25px",
+            textDecoration: "none",
+            fontWeight: 600,
+            fontSize: "14px",
+          }}
+        >
+          Download PDF
+        </a>
       </div>
     </div>
   );

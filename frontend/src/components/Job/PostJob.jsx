@@ -16,42 +16,31 @@ const PostJob = () => {
   const [salaryType, setSalaryType] = useState("default");
 
   const { isAuthorized, user } = useContext(Context);
+  const navigate = useNavigate();
 
   const handleJobPost = async (e) => {
     e.preventDefault();
+    
+    let jobData = {
+      title,
+      description,
+      category,
+      country,
+      city,
+      location,
+    };
+    
     if (salaryType === "Fixed Salary") {
-      setSalaryFrom("");
-      setSalaryFrom("");
+      jobData.fixedSalary = fixedSalary;
     } else if (salaryType === "Ranged Salary") {
-      setFixedSalary("");
-    } else {
-      setSalaryFrom("");
-      setSalaryTo("");
-      setFixedSalary("");
+      jobData.salaryFrom = salaryFrom;
+      jobData.salaryTo = salaryTo;
     }
+    
     await axios
       .post(
         "http://localhost:4000/api/v1/job/post",
-        fixedSalary.length >= 4
-          ? {
-              title,
-              description,
-              category,
-              country,
-              city,
-              location,
-              fixedSalary,
-            }
-          : {
-              title,
-              description,
-              category,
-              country,
-              city,
-              location,
-              salaryFrom,
-              salaryTo,
-            },
+        jobData,
         {
           withCredentials: true,
           headers: {
@@ -61,13 +50,29 @@ const PostJob = () => {
       )
       .then((res) => {
         toast.success(res.data.message);
+        // Reset form fields
+        setTitle("");
+        setDescription("");
+        setCategory("");
+        setCountry("");
+        setCity("");
+        setLocation("");
+        setSalaryFrom("");
+        setSalaryTo("");
+        setFixedSalary("");
+        setSalaryType("default");
+        // Navigate to MyJobs page to see all posted jobs
+        navigate("/jobs/me");
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        if (err.response && err.response.data) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error("An error occurred while posting the job.");
+        }
       });
   };
 
-  const navigateTo = useNavigate();
   if (!isAuthorized || (user && user.role !== "Employer")) {
     return <Navigate to="/login" />;
   }

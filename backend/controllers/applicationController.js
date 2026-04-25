@@ -17,16 +17,17 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
   }
 
   const { resume } = req.files;
-  const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
+  const allowedFormats = ["application/pdf"];
   if (!allowedFormats.includes(resume.mimetype)) {
     return next(
-      new ErrorHandler("Invalid file type. Please upload a PNG, JPEG, or WEBP file.", 400)
+      new ErrorHandler("Invalid file type. Please upload a PDF file.", 400)
     );
   }
   
   try {
     const cloudinaryResponse = await cloudinary.uploader.upload(
-      resume.tempFilePath
+      resume.tempFilePath,
+      { resource_type: "raw" }
     );
 
     if (!cloudinaryResponse || cloudinaryResponse.error) {

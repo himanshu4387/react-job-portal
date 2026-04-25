@@ -35,6 +35,7 @@ const Register = () => {
         }
       );
       toast.success(data.message);
+      setUser(data.user);
       setName("");
       setEmail("");
       setPassword("");
@@ -42,7 +43,11 @@ const Register = () => {
       setRole("");
       setIsAuthorized(true);
     } catch (error) {
-      toast.error(error.response.data.message);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
     } finally {
       setLoading(false);
     }
@@ -81,6 +86,7 @@ const Register = () => {
                   placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  autoComplete="name"
                 />
                 <FaPencilAlt />
               </div>
@@ -93,6 +99,7 @@ const Register = () => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
                 />
                 <MdOutlineMailOutline />
               </div>
@@ -105,6 +112,7 @@ const Register = () => {
                   placeholder="Enter your phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  autoComplete="tel"
                 />
                 <FaPhoneFlip />
               </div>
@@ -117,6 +125,7 @@ const Register = () => {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"

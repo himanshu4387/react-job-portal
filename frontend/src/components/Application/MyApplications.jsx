@@ -149,11 +149,21 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
           </p>
         </div>
         <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
+          <button
             onClick={() => openModal(element.resume.url)}
-          />
+            style={{
+              padding: "10px 24px",
+              background: "linear-gradient(135deg, #7c3aed, #2563eb)",
+              color: "#fff",
+              border: "none",
+              borderRadius: "25px",
+              fontWeight: 600,
+              fontSize: "14px",
+              cursor: "pointer",
+            }}
+          >
+            📄 View Resume (PDF)
+          </button>
         </div>
         <div className="btn_area">
           <button onClick={() => deleteApplication(element._id)}>
@@ -187,11 +197,21 @@ const EmployerCard = ({ element, openModal }) => {
           </p>
         </div>
         <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
+          <button
             onClick={() => openModal(element.resume.url)}
-          />
+            style={{
+              padding: "10px 24px",
+              background: "linear-gradient(135deg, #7c3aed, #2563eb)",
+              color: "#fff",
+              border: "none",
+              borderRadius: "25px",
+              fontWeight: 600,
+              fontSize: "14px",
+              cursor: "pointer",
+            }}
+          >
+            📄 View Resume (PDF)
+          </button>
         </div>
       </div>
     </>

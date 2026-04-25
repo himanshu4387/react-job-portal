@@ -14,7 +14,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { isAuthorized, setIsAuthorized } = useContext(Context);
+  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,6 +31,7 @@ const Login = () => {
         }
       );
       toast.success(data.message);
+      setUser(data.user);
       setEmail("");
       setPassword("");
       setRole("");
@@ -87,6 +88,7 @@ const Login = () => {
                   placeholder="Enter your Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
                 />
                 <button
                   type="button"

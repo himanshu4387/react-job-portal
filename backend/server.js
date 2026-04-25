@@ -7,6 +7,21 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET, // CLOUDINARY_CLIENT_SECRET
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running at port ${process.env.PORT}`);
+const PORT = process.env.PORT || 4000;
+
+const server = app.listen(PORT, () => {
+  console.log(`Server running at port ${PORT}`);
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Attempting to use alternate port...`);
+    const alternatePort = PORT + 1;
+    const altServer = app.listen(alternatePort, () => {
+      console.log(`Server running at port ${alternatePort} instead`);
+    });
+  } else {
+    console.error('Server error:', err);
+    process.exit(1);
+  }
 });
